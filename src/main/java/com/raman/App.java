@@ -11,7 +11,8 @@ public class App {
         // Main Interface
         byte option;
         do {
-            System.out.println("<<<<<<<< GUESS THE NUMBER >>>>>>>>");
+            System.out.println("<<<<<<<< GUESS THE NUMBER GAME >>>>>>>>");
+            System.out.println("----- Main menu ----- \n");
 
             System.out.println("    1. User Picks a Number !");
             System.out.println("    2. Computer picks a Number !");
@@ -30,6 +31,7 @@ public class App {
                     break;
                 case 3:
                     instruction(in);
+                    break;
                 case 4:
                     System.out.println("Exiting...");
                     break;
@@ -93,44 +95,6 @@ public class App {
         }
     }
 
-    private static void computerPlays(Scanner in, Random random) {
-        System.out.println("Think a Number between 1 - 100.");
-        System.out.print("Press 1 to start: ");
-        int n = in.nextInt();
-        int selection = 0;
-        int s = 1;
-        int e = 100;
-        int m;
-        while (selection != 1 || s != e) {
-
-            if(s == 1 && e == 100) {
-                m = random.nextInt(100);
-            } else {
-                m = s + (e - s) / 2;
-
-            }
-            System.out.println("\n>>>>> Is this the number: " + m + " <<<<<");
-            System.out.println("1. Yes this is Correct.");
-            System.out.println("2. No, Try Lower.");
-            System.out.println("3. No, Go Higher.");
-            int userInp = in.nextInt();
-
-            if(userInp == 1) {
-                System.out.println("  YaYY !! The number was: " + m);
-                break;
-
-            } else if(userInp == 2) {
-                e = m - 1;
-
-            } else {
-                s = m + 1;
-            }
-
-        }
-        System.out.println("xoxo___xoxo \n");
-
-    }
-
     private static String logicGame(int genNum, int userNum) {
         if (userNum > genNum) {
             if (userNum - genNum < 5) {
@@ -148,6 +112,45 @@ public class App {
         }
     }
 
+    private static void computerPlays(Scanner in, Random random) {
+        System.out.println("Think a Number between 1 - 100.");
+        System.out.print("Press 1 to start: ");
+        int n = in.nextInt();
+        int selection = 0;
+        int s = 1;
+        int e = 100;
+        int m;
+        while (selection != 1 || s <= e) {
+
+            if (s == 1 && e == 100) {
+                m = random.nextInt(100);
+            } else {
+                m = s + (e - s) / 2;
+
+            }
+
+            System.out.println("\n>>>>> Is this the number: " + m + " <<<<<");
+            System.out.println("1. Yes this is Correct.");
+            System.out.println("2. No, Try Lower.");
+            System.out.println("3. No, Go Higher.");
+            int userInp = in.nextInt();
+
+            if (userInp == 1) {
+                System.out.println("  YaYY !! The number was: " + m);
+                break;
+
+            } else if (userInp == 2) {
+                e = m - 1;
+
+            } else {
+                s = m + 1;
+            }
+
+        }
+        System.out.println("       xoxo___xoxo \n");
+
+    }
+
     public static void instruction(Scanner in) {
         System.out.println("\nHOW TO PLAY ???");
         System.out.println((char) 4 + " The [ Computer/User ] will pick a secret number.");
@@ -155,8 +158,9 @@ public class App {
         System.out.println((char) 4 + " If your guess is too high or too low, It will give you a hint.");
         System.out.println((char) 4 + " See how many turns it takes you to win ! \n");
 
-        System.out.print("Press 1 to go back: ");
+        System.out.print("Press 1 to go back to Main Menu : ");
         String fake = in.next();
+        System.out.println();
         return;
 
     }
