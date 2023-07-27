@@ -2,6 +2,8 @@
 
 package com.raman.com.raman.Tasks;
 
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -14,18 +16,18 @@ public class Task_2 {
         System.out.println(">>>>>> Word Counter <<<<<<");
         System.out.println("***** Main menu *****");
         System.out.println("Read from : ");
-        System.out.println("1. Text input \n2. Text File \n3. Exit");
+        System.out.println("1. Text input \n2. File input \n3. Exit");
 
         //storing in the String
         String word = "";
         while (true) {
             int choice = in.nextInt();
-            in.nextLine();
+            in.nextLine(); // To fix error while getting input as string next time.
             if (choice == 1) {
                 word = textInput(in);
                 break;
             } else if (choice == 2) {
-                word = fileInput();
+                word = fileInput(in);
                 break;
             } else if (choice == 3) {
                 System.out.println("Exiting..");
@@ -35,9 +37,10 @@ public class Task_2 {
             }
         }
 
-        String[] splitWords = word.split(" ");
+        String[] splitWords = word.split("\\W+");
         //Display count;
         countWords(splitWords, in);
+        in.close();
     }
 
     private static void countWords(String[] splitWords, Scanner in) {
@@ -45,7 +48,7 @@ public class Task_2 {
         Map<String, Integer> map = new HashMap<>();
 
         for (String str : splitWords) {
-            if (!str.isBlank() && str.length() > 1) {
+            if (!str.isBlank()) {
                 str = str.toLowerCase().trim();
                 if (map.containsKey(str)) {
                     map.put(str, map.get(str) + 1);
@@ -63,11 +66,8 @@ public class Task_2 {
 
 
         System.out.println("Select option : \n1. Reveal Words : Occurrence \n2.Exit");
-        int choice = in.nextInt();
-        if (choice == 1) {
+        if (in.nextInt() == 1) {
             System.out.println(map.toString());
-        } else {
-            return;
         }
 
     }
@@ -77,7 +77,21 @@ public class Task_2 {
         return in.nextLine();
     }
 
-    private static String fileInput() {
-        return "sdfasg";
+    private static String fileInput(Scanner in)  {
+        System.out.print("Please provide the file path : ");
+        String filePath = in.nextLine();
+        StringBuilder text = new StringBuilder();
+        //Reading from file
+        try (Scanner reader = new Scanner(new FileReader(filePath))){
+            while (reader.hasNextLine()) {
+                text.append(reader.nextLine());
+            }
+
+        } catch (IOException e) {
+            System.out.println("File error !!");
+            e.printStackTrace();
+        }
+
+            return text.toString();
     }
 }
