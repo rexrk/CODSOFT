@@ -3,7 +3,7 @@ package com.raman;
 import java.util.Random;
 import java.util.Scanner;
 
-public class App {
+public class Task_1 {
     public static void main(String[] args) {
         Random random = new Random();
         Scanner in = new Scanner(System.in);
