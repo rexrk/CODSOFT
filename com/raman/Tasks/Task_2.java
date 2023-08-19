@@ -88,8 +88,7 @@ public class Task_2 {
             }
 
         } catch (IOException e) {
-            System.out.println("File error !!");
-            e.printStackTrace();
+            System.out.println("File error !!" + e.getMessage());
         }
 
             return text.toString();
