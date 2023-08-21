@@ -14,7 +14,6 @@ import java.time.LocalDate;
 @Setter
 @ToString
 @Table(name = "students")
-@Service
 public class Students {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

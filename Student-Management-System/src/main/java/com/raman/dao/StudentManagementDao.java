@@ -6,6 +6,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository("stDao")
 public class StudentManagementDao {
     @Autowired(required = false)
@@ -47,7 +49,12 @@ public class StudentManagementDao {
         return template.queryForObject(sql, srm, studentId);
     }
 
-//    public List<Students> getAllStudents() throws DaoException {
-//
-//    }
+    public long countStudents() throws DaoException {
+        String sql = "select count(*) from students";
+        return template.queryForObject(sql, Long.class);
+    }
+    public List<Students> getAllStudents() throws DaoException {
+        String sql = "select * from students";
+        return template.query(sql, srm);
+    }
 }
